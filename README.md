@@ -56,38 +56,38 @@ The client is responsible for transmitting the message to the server.
 ### Server (`server.c`)
 The server is responsible for receiving and printing the transmitted message.
 
-    1. The `handle_signal` function is the signal handler for `SIGUSR1` and `SIGUSR2`.
-       - It maintains a static `current_char` variable to store the bits of the received character.
-       - It also keeps track of the current bit index.
+1. The `handle_signal` function is the signal handler for `SIGUSR1` and `SIGUSR2`.
+- It maintains a static `current_char` variable to store the bits of the received character.
+- It also keeps track of the current bit index.
 
-    2. When a signal is received, the `handle_signal` function checks if it is `SIGUSR1`.
-       - If it is, it assigns 1 to the least significant bit (LSB) of the `current_char`.
-       - If it is `SIGUSR2`, the `current_char` remains unchanged (0).
+2. When a signal is received, the `handle_signal` function checks if it is `SIGUSR1`.
+- If it is, it assigns 1 to the least significant bit (LSB) of the `current_char`.
+- If it is `SIGUSR2`, the `current_char` remains unchanged (0).
 
-    3. The `handle_signal` function increments the bit index.
+3. The `handle_signal` function increments the bit index.
 
-    4. If the bit index reaches 8, it means that a full character has been received.
-       - The function prints the character using `ft_printf` and resets the bit index and `current_char`.
-       - Otherwise, it shifts `current_char` to the left by 1 to make room for the next bit.
+4. If the bit index reaches 8, it means that a full character has been received.
+- The function prints the character using `ft_printf` and resets the bit index and `current_char`.
+- Otherwise, it shifts `current_char` to the left by 1 to make room for the next bit.
 
-    5. The `main` function starts the server by registering the `handle_signal` function as the handler for `SIGUSR1` and `SIGUSR2`.
+5. The `main` function starts the server by registering the `handle_signal` function as the handler for `SIGUSR1` and `SIGUSR2`.
 
-    6. The server then enters an infinite loop using pause, waiting for signals to arrive.
+6. The server then enters an infinite loop using pause, waiting for signals to arrive.
 
-    7.	Whenever a signal is received, the corresponding signal handler is called to process it.
+7.	Whenever a signal is received, the corresponding signal handler is called to process it.
 
 ### Example
 
 Here’s an example of how to use the Minitalk project:
 
-    1.	Start the server by running ./server in one terminal. Note down the server’s PID displayed on the console.
-	2.	In another terminal, execute ./client <server_pid> "Hello, World!" to send the message “Hello, World!” to the server. Replace <server_pid> with the actual PID obtained in step 1.
-	3.	The server will receive the signals, reconstruct the message, and print it as follows:
+1.	Start the server by running ./server in one terminal. Note down the server’s PID displayed on the console.
+2.	In another terminal, execute ./client <server_pid> "Hello, World!" to send the message “Hello, World!” to the server. Replace <server_pid> with the actual PID obtained in step 1.
+3.	The server will receive the signals, reconstruct the message, and print it as follows:
 
 Hello, World!
 
 
-	4.	You can send more messages by repeating step 2 with different messages.
-	5.	To stop the server, you can use Ctrl+C in the terminal where the server is running.
+4.	You can send more messages by repeating step 2 with different messages.
+5.	To stop the server, you can use Ctrl+C in the terminal where the server is running.
 
 This README provides an overview of the Minitalk project, how to compile and use it, and explains the implementation details of both the client and server components. Make sure to adjust any formatting or specific details according to your needs.
