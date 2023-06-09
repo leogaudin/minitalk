@@ -37,11 +37,12 @@
  *
  * @param    signal    SIGUSR1 or SIGUSR2
  */
-void	handle_signal(int signal)
+void	handle_signal(int signal, siginfo_t *info, void *context)
 {
 	static unsigned char current_char;
 	static int bit_index;
 
+    (void)context;
 	current_char |= (signal == SIGUSR1);
 	bit_index++;
 	if (bit_index == 8)
@@ -58,6 +59,10 @@ void	handle_signal(int signal)
 	}
 	else
 		current_char <<= 1;
+	if (signal == SIGUSR1)
+	    kill(info->si_pid, SIGUSR1);
+	else if (signal == SIGUSR2)
+	    kill(info->si_pid, SIGUSR2);
 }
 
 /**
@@ -65,9 +70,14 @@ void	handle_signal(int signal)
  */
 int	main(void)
 {
+	struct sigaction sa;
+
+	sa.sa_sigaction = &handle_signal;
+	sa.sa_flags = SA_SIGINFO;
+	sigemptyset(&sa.sa_mask);
 	printf("%d\n", getpid());
-	signal(SIGUSR1, handle_signal);
-	signal(SIGUSR2, handle_signal);
+	sigaction(SIGUSR1, &handle_signal, NULL);
+	sigaction(SIGUSR2, &handle_signal, NULL);
 	while (1)
 		pause();
 	return (0);

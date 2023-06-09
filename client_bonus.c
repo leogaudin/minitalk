@@ -44,6 +44,14 @@ void	send_signal(int pid, unsigned char character)
 	}
 }
 
+void    handle_read_receipt(int signal)
+{
+	if (signal == SIGUSR1)
+	    ft_printf("Received bit 1\n");
+	else if (signal == SIGUSR2)
+	    ft_printf("Received bit 0\n");
+}
+
 /**
  * @brief    Sends a message to the server character by character.
  *
@@ -56,6 +64,8 @@ int	main(int argc, char *argv[])
 	const char	*message;
 	int			i;
 
+    signal(SIGUSR1, handle_read_receipt);
+	signal(SIGUSR2, handle_read_receipt);
 	if (argc != 3)
 	{
 		ft_printf("Usage: %s <pid> <message>\n", argv[0]);
