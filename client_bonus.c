@@ -6,7 +6,7 @@
 /*   By: lgaudin <lgaudin@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:02:14 by lgaudin           #+#    #+#             */
-/*   Updated: 2023/06/09 17:28:10 by lgaudin          ###   ########.fr       */
+/*   Updated: 2023/06/10 13:19:36 by lgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	send_signal(int pid, unsigned char character)
 			kill(pid, SIGUSR2);
 		else
 			kill(pid, SIGUSR1);
-		usleep(42);
+		usleep(1400);
 	}
 }
 

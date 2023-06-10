@@ -6,7 +6,7 @@
 /*   By: lgaudin <lgaudin@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:02:13 by lgaudin           #+#    #+#             */
-/*   Updated: 2023/06/09 17:31:26 by lgaudin          ###   ########.fr       */
+/*   Updated: 2023/06/10 13:12:52 by lgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@
  * 00101101   result stored in message after the bitwise OR operation
  *
  * It will then increment the bit index.
- * If it is 8, it means that
- * the char has been fully transmitted. It will then print it and
- * reset the bit index and the current char.
+ * If it is 8, it means that the char has been fully transmitted.
+ * It will then print it and reset the bit index and the current char.
  * Else, it will shift the current char to the left by 1.
  *
  * @param    signal    SIGUSR1 or SIGUSR2
@@ -47,13 +46,7 @@ void	handle_signal(int signal, siginfo_t *info, void *context)
 	bit_index++;
 	if (bit_index == 8)
 	{
-		if (current_char == END_TRANSMISSION)
-		{
-			ft_printf("\n");
-			// TODO: implement read receipt
-		}
-		else
-			ft_printf("%c", current_char);
+		ft_printf("%c", current_char);
 		bit_index = 0;
 		current_char = 0;
 	}
@@ -76,8 +69,8 @@ int	main(void)
 	sa.sa_flags = SA_SIGINFO;
 	sigemptyset(&sa.sa_mask);
 	printf("%d\n", getpid());
-	sigaction(SIGUSR1, &handle_signal, NULL);
-	sigaction(SIGUSR2, &handle_signal, NULL);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
 		pause();
 	return (0);
