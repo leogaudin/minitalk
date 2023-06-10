@@ -6,7 +6,7 @@
 /*   By: lgaudin <lgaudin@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:02:13 by lgaudin           #+#    #+#             */
-/*   Updated: 2023/06/10 13:12:52 by lgaudin          ###   ########.fr       */
+/*   Updated: 2023/06/10 13:38:49 by lgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@
  */
 void	handle_signal(int signal, siginfo_t *info, void *context)
 {
-	static unsigned char current_char;
-	static int bit_index;
+	static unsigned char	current_char;
+	static int				bit_index;
 
-    (void)context;
+	(void)context;
 	current_char |= (signal == SIGUSR1);
 	bit_index++;
 	if (bit_index == 8)
@@ -53,9 +53,9 @@ void	handle_signal(int signal, siginfo_t *info, void *context)
 	else
 		current_char <<= 1;
 	if (signal == SIGUSR1)
-	    kill(info->si_pid, SIGUSR1);
+		kill(info->si_pid, SIGUSR1);
 	else if (signal == SIGUSR2)
-	    kill(info->si_pid, SIGUSR2);
+		kill(info->si_pid, SIGUSR2);
 }
 
 /**
@@ -63,7 +63,7 @@ void	handle_signal(int signal, siginfo_t *info, void *context)
  */
 int	main(void)
 {
-	struct sigaction sa;
+	struct sigaction	sa;
 
 	sa.sa_sigaction = &handle_signal;
 	sa.sa_flags = SA_SIGINFO;

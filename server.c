@@ -6,7 +6,7 @@
 /*   By: lgaudin <lgaudin@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:02:13 by lgaudin           #+#    #+#             */
-/*   Updated: 2023/06/09 16:49:47 by lgaudin          ###   ########.fr       */
+/*   Updated: 2023/06/10 13:38:51 by lgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@
  */
 void	handle_signal(int signal)
 {
-	static unsigned char current_char;
-	static int bit_index;
+	static unsigned char	current_char;
+	static int				bit_index;
 
 	current_char |= (signal == SIGUSR1);
 	bit_index++;

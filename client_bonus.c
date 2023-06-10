@@ -6,7 +6,7 @@
 /*   By: lgaudin <lgaudin@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:02:14 by lgaudin           #+#    #+#             */
-/*   Updated: 2023/06/10 13:30:49 by lgaudin          ###   ########.fr       */
+/*   Updated: 2023/06/10 13:38:56 by lgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ void	send_signal(int pid, unsigned char character)
 	}
 }
 
-void    handle_read_receipt(int signal)
+void	handle_read_receipt(int signal)
 {
 	if (signal == SIGUSR1)
-	    ft_printf("Received bit 1\n");
+		ft_printf("Received bit 1\n");
 	else if (signal == SIGUSR2)
-	    ft_printf("Received bit 0\n");
+		ft_printf("Received bit 0\n");
 }
 
 /**
@@ -64,7 +64,7 @@ int	main(int argc, char *argv[])
 	const char	*message;
 	int			i;
 
-    signal(SIGUSR1, handle_read_receipt);
+	signal(SIGUSR1, handle_read_receipt);
 	signal(SIGUSR2, handle_read_receipt);
 	if (argc != 3)
 	{
