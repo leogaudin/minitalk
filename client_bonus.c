@@ -6,7 +6,7 @@
 /*   By: lgaudin <lgaudin@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:02:14 by lgaudin           #+#    #+#             */
-/*   Updated: 2023/06/10 13:38:56 by lgaudin          ###   ########.fr       */
+/*   Updated: 2023/06/10 14:00:06 by lgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ void	send_signal(int pid, unsigned char character)
 	}
 }
 
+/**
+ * @brief    Handles the signals sent back by the server and prints
+ * the corresponding information.
+ *
+ * @param    signal    The signal sent back by the server.
+ */
 void	handle_read_receipt(int signal)
 {
 	if (signal == SIGUSR1)
