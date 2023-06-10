@@ -101,6 +101,8 @@ The provided source code includes a bonus version (`client_bonus.c` and `server_
 These additional features enhance the interactivity and feedback during the communication process.
 
 ### Functions Explained
+#### `send_signal` (client)
+
 ```C
 void	send_signal(int pid, unsigned char character)
 ```
@@ -122,8 +124,7 @@ void	send_signal(int pid, unsigned char character)
 
    * We repeat this process until we have sent all 8 bits.
 
----
-
+#### `handle_signal` (server)
 ```C
 void	handle_signal(int signal)
 ```
