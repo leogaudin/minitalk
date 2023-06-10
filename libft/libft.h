@@ -6,7 +6,7 @@
 /*   By: lgaudin <lgaudin@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:50:27 by lgaudin           #+#    #+#             */
-/*   Updated: 2023/06/09 15:04:33 by lgaudin          ###   ########.fr       */
+/*   Updated: 2023/06/10 14:01:03 by lgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 50
 # endif
+
 int					get_nl_index(char *stash);
 char				*get_next_line(int fd);
 
