@@ -6,7 +6,7 @@
 /*   By: lgaudin <lgaudin@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:02:13 by lgaudin           #+#    #+#             */
-/*   Updated: 2023/06/10 13:38:49 by lgaudin          ###   ########.fr       */
+/*   Updated: 2023/06/10 14:30:45 by lgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ void	handle_signal(int signal, siginfo_t *info, void *context)
 	bit_index++;
 	if (bit_index == 8)
 	{
-		ft_printf("%c", current_char);
+		if (current_char == END_TRANSMISSION)
+			ft_printf("\n");
+		else
+			ft_printf("%c", current_char);
 		bit_index = 0;
 		current_char = 0;
 	}

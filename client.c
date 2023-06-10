@@ -6,7 +6,7 @@
 /*   By: lgaudin <lgaudin@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:02:14 by lgaudin           #+#    #+#             */
-/*   Updated: 2023/06/09 16:53:18 by lgaudin          ###   ########.fr       */
+/*   Updated: 2023/06/10 14:29:08 by lgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ int	main(int argc, char *argv[])
 	i = 0;
 	while (message[i])
 		send_signal(server_pid, message[i++]);
+	send_signal(server_pid, '\0');
 	return (0);
 }
