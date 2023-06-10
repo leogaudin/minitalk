@@ -17,6 +17,7 @@
       * [Client](#client)
       * [Server](#client)
       * [Bonus Features](#bonus-features)
+      * [Functions Explained](#functions-explained)
    * [Credits](#dependency)
 <!--te-->
 
@@ -98,6 +99,62 @@ The provided source code includes a bonus version (`client_bonus.c` and `server_
    * The client displays a message on the console for each bit it sends. It prints "Received bit 1" for `SIGUSR1` and "Received bit 0" for `SIGUSR2`. This can help visualize the communication process.
    * The server sends an acknowledgment signal back to the client after receiving each bit. If the received signal was `SIGUSR1`, it sends `SIGUSR1` to the client. If the received signal was `SIGUSR2`, it sends `SIGUSR2`. This allows the client to know that the server has successfully received the bit.
 These additional features enhance the interactivity and feedback during the communication process.
+
+### Functions Explained
+```C
+void	send_signal(int pid, unsigned char character)
+```
+* Uses an intermediate `temp_char` buffer to read every bit of the character.
+* At every iteration, `temp_char` is assigned the value of `character` shifted to the right `i` times.
+   * Let's say we want to read **0**1100001 bit by bit, starting from the Most Significant Bit (left)
+
+   * We first shift the value of `character` to the right 7 times, which gives us 0000000**0**.
+
+   > **⚠️ Note: the Least Significant Bit (right) determines if a number is odd or even. If the LSB is 1, the number is odd. If the LSB is 0, the number is even.**
+
+   * We then calculate `temp_char % 2`, which reveals if the number is odd (LSB = 1) or even (LSB = 0).
+
+   * In this case, `temp_char % 2` is 0, so we send a `SIGUSR2` signal to the server, which will interpret it as a 0 bit.
+
+   * We then shift the value of `character` to the right 6 times, which gives us 000000**01**.
+
+   * In this case, `temp_char % 2` is 1, so we send a `SIGUSR1` signal to the server, which will interpret it as a 1 bit.
+
+   * We repeat this process until we have sent all 8 bits.
+
+---
+
+```C
+void	handle_signal(int signal)
+```
+* Uses two static variables:
+   ```C
+   static unsigned char	current_char;
+   static int				bit_index;
+   ```
+   * The use of static variables allows us to keep track of the information throughout the program's execution.
+
+   * `current_char` stores the current character being received.
+
+   * `bit_index` stores the index of the current bit being received.
+
+* The following line extracts the bit value (0 or 1) from the received signal in a very condensed way:
+   ```C
+   current_char |= (signal == SIGUSR1);
+   ```
+   * The result of `(signal == SIGUSR1)` will either be 00000000 for false or 00000001 for true.
+
+   * The `|=` operator is a bitwise OR assignment operator. It compares two bytes in their binary representation, and for every bit, assigns 0 if both bits are 0, and 1 otherwise.
+
+   * Example:
+      ```
+      00101100   current_char
+      00000001   result of (sigsent == SIGUSR1)
+      --------
+      00101101   result stored in message after the bitwise OR operation
+      ```
+
+   * Repeatingly doing this and shifting it to the left will allow us to store the entire character in `current_char`.
 
 ## Credits
 
